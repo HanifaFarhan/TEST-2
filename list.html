@@ -1,0 +1,99 @@
+<html lang="en">
+	<head>
+    	<script src="//cdnjs.cloudflare.com/ajax/libs/jsforce/1.9.1/jsforce.min.js"></script>
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	       	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	</head>
+
+    <style>
+      .obj-list{
+          max-height: 300px;
+          overflow: auto;
+      }
+  
+     a{
+          color:#E38469;
+          cursor:pointer;
+      }
+     a:hover{
+           color:red;
+           text-decoration: none;
+     }
+     a:active{
+           color:#14264B;
+     }
+     
+    </style>
+
+		<body>
+      <div class="container">
+        <div class="row">
+           <div class="col-md-12" id ='class-list'>
+           </div> <br>
+          <div class="col-md-12"> 
+          </div>
+          <div class="col-md-12" id ='page-list'>
+           </div> <br>
+          <div class="col-md-12"> 
+          </div>
+          <div class="col-md-12" id ='trigger-list'>
+           </div> <br>
+          <div class="col-md-12"> 
+          </div>
+          <button type=button id="select" class="btn btn-primary"><a target="_blank">Select</a></button>
+        </div>
+      </div>
+      
+		
+		<script>
+     $(document).ready(function(){
+      //class
+          $.ajax({
+               type : 'GET',
+               url : '/loadClasses',
+               success: function(data){
+                $('#class-list').append(data); 
+               } 
+          });
+          // PAGE
+           $.ajax({
+               type : 'GET',
+               url : '/loadPages',
+               success: function(data){
+                $('#page-list').append(data); 
+               } 
+          });
+          //Trigger
+            $.ajax({
+               type : 'GET',
+               url : '/loadTriggers',
+               success: function(data){
+                $('#trigger-list').append(data); 
+              
+               } 
+          });
+          $('#select').click(function(){
+            var classes1=$("#ApexClasses").val();
+            var pages1=$("#ApexPages").val();
+            var triggers1=$("#ApexTriggers").val();
+             $.ajax({
+               type : 'POST',
+               url : '/zipFileDownload',
+               data:{ classes : classes1 , pages : pages1 , triggers:triggers1 },
+               success: function(data){
+                console.log(data);
+                $(location).attr("href","/zip");
+              } 
+           });
+ 
+       });
+
+           
+    });
+		
+		</script>
+
+		</body>
+</html>
