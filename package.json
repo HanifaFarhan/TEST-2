@@ -3,7 +3,7 @@
 	"description": "An Express.js application using the MVC design pattern for writing rest apis",
 	"version": "0.0.1",
 	"scripts": {
-		"start": "node ex.js"
+		"start": "node mserver.js"
 	},
 	"engines": {
 		"node": "6.10.2",
