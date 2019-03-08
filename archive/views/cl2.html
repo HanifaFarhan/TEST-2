@@ -1,0 +1,8 @@
+<h3> List For <%= name %><h3>
+</h3>
+
+ <select id="<%= name %>" name="class" multiple>
+        <% fields.forEach(function(field1){%>
+          <option value="<%=field1.fullName%>"><%=field1.fullName %></option>
+        <%}) %> 
+  </select>
